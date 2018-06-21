@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//Script basierend auf Jenny Rinks Wolfgame
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,25 +25,6 @@ public class GM : MonoBehaviour
     public Transform capsuleObj;
 
     public int randNum;
-
-
-    // Use this for initialization
-    void Start()
-    {
-
-       /* for (int i = 0; i < 7; i++)
-        {
-            //Instantiate(bbNoPit, new Vector3(0, 0, i*4), bbNoPit.rotation); // baut Blocklandschaft ..macht mit der Schleife irgendwie nicht was es soll, daher einzeln
-        }*/
-
-
-      //  Instantiate(bbNoPit, new Vector3(0, 0, 0), bbNoPit.rotation); // baut Blocklandschaft 
-      //  Instantiate(bbNoPit, new Vector3(0, 0, 4), bbNoPit.rotation);
-      //  Instantiate(bbNoPit, new Vector3(0, 0, 8), bbNoPit.rotation);
-      //  Instantiate(bbNoPit, new Vector3(0, 0, 12), bbNoPit.rotation);
-      //  Instantiate(bbNoPit, new Vector3(0, 0, 16), bbNoPit.rotation);
-      //  Instantiate(bbNoPit, new Vector3(0, 0, 20), bbNoPit.rotation);
-    }
 
     // Update is called once per frame
     void Update()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//Script basierend auf Jenny Rinks Wolfgame
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,13 +18,15 @@ public class moveorb : MonoBehaviour {
 
     public GameObject mPlayer;
     private float xPlayer;
-	
-	// Update is called once per frame
-	void Update () { 
+    private float yPlayer;
+
+    // Update is called once per frame
+    void Update () { 
         xPlayer = BodySourceView.PlayerMovement.x;
-        Vector3 temp = new Vector3(xPlayer*2, 0, 0);//Werte von 3 bis -6
-        mPlayer.transform.position = temp;
-        Debug.Log(mPlayer.transform.position);
+        yPlayer = BodySourceView.PlayerMovement.y;
+       // Vector3 temp = new Vector3(xPlayer, yPlayer+3, 0);//Werte von 3 bis -6
+       // mPlayer.transform.position = temp;
+       // Debug.Log(mPlayer.transform.position);
         GetComponent<Rigidbody>().velocity = new Vector3(horizVel, 0, 0); // Spieler steht und ist nach rechts/links beweglich wenn Variable horizVel verändert wird
 
         if ((Input.GetKeyDown (moveL)) && (laneNum > 1) && (controllLocked == "n")) // nach links
@@ -47,9 +50,9 @@ public class moveorb : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-   
-        if (other.gameObject.name == "Coin(Clone)")
 
+        //if (other.gameObject.name == "Coin(Clone)")
+        if (other.gameObject.name == "Coin_new(Clone)")
         {
             Debug.Log("coin collision");
             Destroy(other.gameObject);

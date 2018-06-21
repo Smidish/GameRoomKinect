@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class effects : MonoBehaviour {
+public class effects : MonoBehaviour
+{
 
     public float speed = -4;
     public float v = 1.0f;
 
-	
-	// Update is called once per frame // das ist mein Versuch den Speed anzupassen..spakt aber rum...
-	void Update () {
+    // Use this for initialization
+    void Start()
+    {
+
+
+    }
+
+    // Update is called once per frame // das ist mein Versuch den Speed anzupassen..spakt aber rum...
+    void Update()
+    {
         // if (GM.timeTotal > 10)
         //{
         // v = 1 - Mathf.Floor(GM.timeTotal / 100) * 0.5f;
@@ -17,7 +25,7 @@ public class effects : MonoBehaviour {
         // StartCoroutine(Example());
         //}
 
-   
+
 
         GetComponent<Rigidbody>().velocity = new Vector3(0, GM.vertVel, speed); // Bewegung nach vorne
 
@@ -28,12 +36,12 @@ public class effects : MonoBehaviour {
             transform.Rotate(3, 0, 0);           // Kapsel rotiert
         }
 
-        if (gameObject.name == "coin(Clone)")
+        if (gameObject.name == "Coin(Clone)")
         {
             transform.Rotate(0, 0, 3);          // Münze rotiert
         }
 
-     
+
 
     }
     /*
