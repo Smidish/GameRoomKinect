@@ -17,6 +17,8 @@ public class HighscoreFunctions : MonoBehaviour {
     public string username = DEFAULT_NAME;
     public int score = DEFAULT_SCORE;
 
+    public string path = @"D:\highscore.txt";
+
     const bool DEBUG_ON = true;
 
     void Start()
@@ -24,22 +26,29 @@ public class HighscoreFunctions : MonoBehaviour {
         convertingFunction();
     }
 
-    void convertingFunction()
+    public void ReadSaveHighScore()
     {
-        var oldjson = File.ReadAllText(@"D:\path.txt");
+        ReadFromFile(path);
+        Debug.Log(ReadFromFile(path));
+        WriteToFile(path);
+    }
+
+    public void convertingFunction()
+    {
+        var oldjson = CreateFromJson(File.ReadAllText(path));
+        
 
         Highscore _data = new Highscore();
         _data._highscore = 89;
         _data._username = "Smi";
 
-        //List<Highscore> _data = new List<Highscore>();
-        //_data.Add(new Highscore()
-        //{
-        //    _highscore = 99,
-        //    _username = "Smilla"
-        //});
-        string json = JsonUtility.ToJson(_data);
-        json= oldjson + json;
+        List<Highscore> _dataList = new List<Highscore>();
+        _dataList.Add(new Highscore()
+        {
+            _highscore = 99,
+            _username = "Smilla"
+        });
+        string json = JsonUtility.ToJson(_dataList);
         System.IO.File.WriteAllText(@"D:\path.txt", json);
         Debug.Log(JsonUtility.FromJson<Highscore>(json));
     }
@@ -62,16 +71,9 @@ public class HighscoreFunctions : MonoBehaviour {
             Debug.LogFormat("WriteToFile({0}) -- data:\n{1}", filePath, json);
     }
 
-    public static HighscoreFunctions ReadFromFile(string filePath)
+    public static Highscore ReadFromFile(string filePath)
     {
-        // If the file doesn't exist then just return the default object.
-        if (!File.Exists(filePath))
-        {
-            Debug.LogErrorFormat("ReadFromFile({0}) -- file not found, returning new object", filePath);
-            return new HighscoreFunctions();
-        }
-        else
-        {
+
             // If the file does exist then read the entire file to a string.
             string contents = File.ReadAllText(filePath);
 
@@ -83,12 +85,11 @@ public class HighscoreFunctions : MonoBehaviour {
             if (string.IsNullOrEmpty(contents))
             {
                 Debug.LogErrorFormat("File: '{0}' is empty. Returning default SaveData");
-                return new HighscoreFunctions();
+                return new Highscore();
             }
 
             // Otherwise we can just use JsonUtility to convert the string to a new SaveData object.
-            return JsonUtility.FromJson<HighscoreFunctions>(contents);
-        }
+            return JsonUtility.FromJson<Highscore>(contents);
     }
 
 

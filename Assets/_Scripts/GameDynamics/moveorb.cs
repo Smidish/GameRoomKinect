@@ -13,20 +13,20 @@ public class moveorb : MonoBehaviour {
     public float yWertApassen;
     public float yWertHoch;
 
+    public GameObject mPlayer;
+    public Text scoretext;
+
     public KeyCode moveL; 
     public KeyCode moveR;
 
-    public float horizVel = 0;  // Horizontal linie für rechts und links bewegen
-    public int laneNum = 2;     //Raumeinschränkung, damit Spieler nicht über den Rand läuft
-    public string controllLocked = "n";
+    private float horizVel = 0;  // Horizontal linie für rechts und links bewegen
+    private int laneNum = 2;     //Raumeinschränkung, damit Spieler nicht über den Rand läuft
+    private string controllLocked = "n";
 
-    public Transform boomObj;
-
-    public static Vector3 playerMovement;
-
-    public GameObject mPlayer;
     private float xPlayer;
     private float yPlayer;
+
+    public static Vector3 playerMovement;
 
     // Update is called once per frame
     void Update () { 
@@ -56,16 +56,16 @@ public class moveorb : MonoBehaviour {
             yPlayer = BodySourceView.PlayerMovement.y;
             Vector3 temp = new Vector3(xPlayer * xWertApassen, yPlayer * yWertApassen + yWertHoch, 0);//Werte von 3 bis -6
             mPlayer.transform.position = temp;
-            Debug.Log(mPlayer.transform.position);
+            //Debug.Log(mPlayer.transform.position);
             playerMovement = temp;
         }
-      
 
-        
+        scoretext.text = "Score:" + GM.coinTotal;
+
     }
 
     void OnTriggerEnter(Collider other)
-    {
+    { 
         //if (other.gameObject.name == "Coin(Clone)")
         if (other.gameObject.name == "Coin_new(Clone)")
         {
@@ -78,9 +78,7 @@ public class moveorb : MonoBehaviour {
         {
             Debug.Log("enemy collision");
             Destroy(other.gameObject);
-            GM.zVelAdj = 0;
             GM.coinTotal -= 2;
-            //Instantiate(boomObj, transform.position, boomObj.rotation); // aktivieren, wenn brutale Version^^
         }
         else if(other.gameObject.name == "Boni(Clone)")
         {

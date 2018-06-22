@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour {	
 	void Update () {
-        transform.position = moveorb.playerMovement;
+        Vector3 temp = new Vector3(moveorb.playerMovement.x, moveorb.playerMovement.y, -3.0f);
+        transform.position = temp;
 	}
 }

@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GM : MonoBehaviour
 {
+    public bool trollBuild;
 
     public static float vertVel = 0;
     public static int coinTotal = 0;
@@ -14,15 +16,15 @@ public class GM : MonoBehaviour
 
     public float zScenePos = 30;
 
-    public static float zVelAdj = 1;
-
-    public static string lvCompStatus = "";
 
    // public Transform bbNoPit;
 
     public Transform coinObj;
     public Transform enemyObj;
     public Transform boniObj;
+
+    public AudioClip sound;
+    public AudioSource asource;
 
     private int randNum;
     private int randNumX;
@@ -55,68 +57,24 @@ public class GM : MonoBehaviour
             }
 
 
-
-            
-            
-            
-
-
-            //(x, y, z)
-            //if (randNum < 3)
-            //{
-            //    Instantiate(coinObj, new Vector3(-1, 1.07f, zScenePos), coinObj.rotation);
-            //}
-
-            //if (randNum > 7 && randNum < 10)
-            //{
-            //    Instantiate(coinObj, new Vector3(1, 1.07f, zScenePos), coinObj.rotation);
-            //}
-
-            //if (randNum > 10)
-            //{
-            //    Instantiate(coinObj, new Vector3(0, 1.07f, zScenePos), coinObj.rotation);
-            //}
-
-
-            //if (randNum == 5)
-            //{
-            //    Instantiate(obstObj, new Vector3(0, 1.07f, zScenePos), obstObj.rotation);
-            //}
-
-            //if (randNum == 4)
-            //{
-            //    Instantiate(obstObj, new Vector3(1, 1.07f, zScenePos), obstObj.rotation);
-            //}
-
-            //if (randNum == 6)
-            //{
-            //    Instantiate(obstObj, new Vector3(-1, 1.07f, zScenePos), obstObj.rotation);
-            //}
-
-
             // Instantiate(bbNoPit, new Vector3(0, 1.07f, zScenePos), bbNoPit.rotation);
-            zScenePos -= 5;
+            zScenePos -= 2;
         }
-
-
 
         timeTotal += Time.deltaTime;
 
-        if (lvCompStatus == "Fail")
+        //Game finished
+        if (waittoload > 2 || timeTotal > 100)
         {
-            waittoload += Time.deltaTime;
-
-
+            asource.clip = sound;
+            asource.Play();
+            wait(4.0f);
+            SceneManager.LoadScene("end");
         }
+    }
 
-        if (waittoload > 2)
-        {
-            SceneManager.LoadScene("Levelcomp");
-        }
-
-        if (timeTotal > 100)
-        {
-            SceneManager.LoadScene("Levelcomp");
-        }
+    IEnumerator wait(float sec)
+    {
+        yield return new WaitForSeconds(sec);
     }
 }
