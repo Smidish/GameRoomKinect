@@ -21,50 +21,77 @@ public class GM : MonoBehaviour
    // public Transform bbNoPit;
 
     public Transform coinObj;
-    public Transform obstObj;
-    public Transform capsuleObj;
+    public Transform enemyObj;
+    public Transform boniObj;
 
-    public int randNum;
+    private int randNum;
+    private int randNumX;
+    private int randNumY;
+    private float x;
+    private float y;
 
     // Update is called once per frame
     void Update()
     {
         if (zScenePos > 3) //Random Objekte (obst/coins/Capsules) erschaffen
         {
-            randNum = Random.Range(0, 15);
+            randNumX = Random.Range(-15, 15);
+            x = randNumX * 0.2f;
+            randNumY = Random.Range(0, 2);
+            y = randNumY;
+
+            randNum = Random.Range(0,9);
+            if (randNum <= 6) //70% Wahrscheinlichkeit
+            {
+                Instantiate(coinObj, new Vector3(x, y, zScenePos), coinObj.rotation);
+            }
+            else if(randNum>6 && randNum<=8) //20% Wahrscheinlichkeit
+            {
+                Instantiate(enemyObj, new Vector3(x, y, zScenePos), enemyObj.rotation);
+            }
+            else if (randNum == 9) //10% Wahrscheinlichkeit
+            {
+                Instantiate(boniObj, new Vector3(x, y, zScenePos), boniObj.rotation);
+            }
+
+
+
+            
+            
+            
 
 
             //(x, y, z)
-            if (randNum < 3)
-            {
-                Instantiate(coinObj, new Vector3(-1, 1.07f, zScenePos), coinObj.rotation);
-            }
+            //if (randNum < 3)
+            //{
+            //    Instantiate(coinObj, new Vector3(-1, 1.07f, zScenePos), coinObj.rotation);
+            //}
 
-            if (randNum > 7 && randNum < 10)
-            {
-                Instantiate(coinObj, new Vector3(1, 1.07f, zScenePos), coinObj.rotation);
-            }
+            //if (randNum > 7 && randNum < 10)
+            //{
+            //    Instantiate(coinObj, new Vector3(1, 1.07f, zScenePos), coinObj.rotation);
+            //}
 
-            if (randNum > 10)
-            {
-                Instantiate(coinObj, new Vector3(0, 1.07f, zScenePos), coinObj.rotation);
-            }
+            //if (randNum > 10)
+            //{
+            //    Instantiate(coinObj, new Vector3(0, 1.07f, zScenePos), coinObj.rotation);
+            //}
 
 
-            if (randNum == 5)
-            {
-                Instantiate(obstObj, new Vector3(0, 1.07f, zScenePos), obstObj.rotation);
-            }
+            //if (randNum == 5)
+            //{
+            //    Instantiate(obstObj, new Vector3(0, 1.07f, zScenePos), obstObj.rotation);
+            //}
 
-            if (randNum == 4)
-            {
-                Instantiate(obstObj, new Vector3(1, 1.07f, zScenePos), obstObj.rotation);
-            }
+            //if (randNum == 4)
+            //{
+            //    Instantiate(obstObj, new Vector3(1, 1.07f, zScenePos), obstObj.rotation);
+            //}
 
-            if (randNum == 6)
-            {
-                Instantiate(obstObj, new Vector3(-1, 1.07f, zScenePos), obstObj.rotation);
-            }
+            //if (randNum == 6)
+            //{
+            //    Instantiate(obstObj, new Vector3(-1, 1.07f, zScenePos), obstObj.rotation);
+            //}
 
 
             // Instantiate(bbNoPit, new Vector3(0, 1.07f, zScenePos), bbNoPit.rotation);

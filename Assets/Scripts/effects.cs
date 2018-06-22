@@ -8,14 +8,6 @@ public class effects : MonoBehaviour
     public float speed = -4;
     public float v = 1.0f;
 
-    // Use this for initialization
-    void Start()
-    {
-
-
-    }
-
-    // Update is called once per frame // das ist mein Versuch den Speed anzupassen..spakt aber rum...
     void Update()
     {
         // if (GM.timeTotal > 10)
@@ -26,10 +18,8 @@ public class effects : MonoBehaviour
         //}
 
 
-
+        //IMPORTANT
         GetComponent<Rigidbody>().velocity = new Vector3(0, GM.vertVel, speed); // Bewegung nach vorne
-
-
 
         if (gameObject.name == "Capsule(Clone)")
         {
@@ -40,16 +30,5 @@ public class effects : MonoBehaviour
         {
             transform.Rotate(0, 0, 3);          // Münze rotiert
         }
-
-
-
     }
-    /*
-    IEnumerator Example()
-    {
-      // print(Time.time);
-        yield return new WaitForSeconds(5);
-      //  print(Time.time);
-    }
-    */
 }

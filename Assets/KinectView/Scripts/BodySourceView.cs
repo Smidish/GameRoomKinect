@@ -77,6 +77,8 @@ public class BodySourceView : MonoBehaviour
     private GameObject CreateBodyObject(ulong id)
     {
         GameObject body = new GameObject("Body:" + id);
+        //body.GetComponent(MeshRenderer).eneabled = false;
+        body.SetActive(false);
 
         foreach (JointType joint in _joints)
         {
