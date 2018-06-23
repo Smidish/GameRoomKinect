@@ -67,8 +67,11 @@ public class GM : MonoBehaviour
         if (waittoload > 2 || timeTotal > 100)
         {
             asource.clip = sound;
-            asource.Play();
-            wait(4.0f);
+            if (trollBuild)
+            {
+                asource.Play();
+                wait(4.0f);
+            }
             SceneManager.LoadScene("end");
         }
     }
