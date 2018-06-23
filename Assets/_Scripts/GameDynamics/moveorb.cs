@@ -14,21 +14,25 @@ public class moveorb : MonoBehaviour {
     public float yWertHoch;
 
     public GameObject mPlayer;
+    public GameObject HL; //left Hand
+    public GameObject HR; //right Hand
     public Text scoretext;
 
     public KeyCode moveL; 
     public KeyCode moveR;
 
+   
+
+
     private float horizVel = 0;  // Horizontal linie für rechts und links bewegen
-    private int laneNum = 2;     //Raumeinschränkung, damit Spieler nicht über den Rand läuft
+    private int laneNum = 2;     //Raumeinschränkung, damit Spieler nicht über den Rand läuft (nur bei Tastatur Input)
     private string controllLocked = "n";
 
     private float xPlayer;
     private float yPlayer;
 
-    public static Vector3 playerMovement;
+    public static Vector3 playerMovementCamera;
 
-    // Update is called once per frame
     void Update () { 
         
 
@@ -55,13 +59,17 @@ public class moveorb : MonoBehaviour {
             xPlayer = BodySourceView.PlayerMovement.x;
             yPlayer = BodySourceView.PlayerMovement.y;
             Vector3 temp = new Vector3(xPlayer * xWertApassen, yPlayer * yWertApassen + yWertHoch, 0);//Werte von 3 bis -6
+            Vector3 tempHR = new Vector3(BodySourceView.PlayerMovementHR.x, BodySourceView.PlayerMovementHR.y, BodySourceView.PlayerMovementHR.z);
+            Vector3 tempHL = new Vector3(BodySourceView.PlayerMovementHL.x, BodySourceView.PlayerMovementHL.y, BodySourceView.PlayerMovementHL.z);
             mPlayer.transform.position = temp;
+            HR.transform.position = tempHR;
+            HL.transform.position = tempHL;
             //Debug.Log(mPlayer.transform.position);
-            playerMovement = temp;
+            playerMovementCamera = temp;
         }
 
-        scoretext.text = "Score:" + GM.coinTotal;
 
+        scoretext.text = "Score:" + GM.coinTotal;
     }
 
     void OnTriggerEnter(Collider other)

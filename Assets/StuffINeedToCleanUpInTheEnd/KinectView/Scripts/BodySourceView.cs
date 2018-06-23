@@ -10,6 +10,8 @@ public class BodySourceView : MonoBehaviour
 {
 
     public static Vector3 PlayerMovement;
+    public static Vector3 PlayerMovementHR;
+    public static Vector3 PlayerMovementHL;
     public BodySourceManager mBodySourceManager;
     public GameObject mJointObject;                 //Material for Tracking Points
     
@@ -18,6 +20,8 @@ public class BodySourceView : MonoBehaviour
     private List<JointType> _joints = new List<JointType>
     {
         JointType.SpineBase,
+        JointType.HandLeft,
+        JointType.HandRight
     };
     
     void Update () 
@@ -77,11 +81,10 @@ public class BodySourceView : MonoBehaviour
     private GameObject CreateBodyObject(ulong id)
     {
         GameObject body = new GameObject("Body:" + id);
-        //body.GetComponent(MeshRenderer).eneabled = false;
-        body.SetActive(false);
 
         foreach (JointType joint in _joints)
         {
+            body.SetActive(false);
             GameObject newJoint = Instantiate(mJointObject);
             newJoint.name = joint.ToString();
             newJoint.transform.parent = body.transform;
@@ -92,15 +95,30 @@ public class BodySourceView : MonoBehaviour
     private void RefreshBodyObject(Kinect.Body body, GameObject bodyObject)
     {
         //HERE Position der Joints abgreifen
+        //needs to be testet with kinect
         foreach(JointType _joint in _joints)
         {
             Joint sourceJoint = body.Joints[_joint];
             Vector3 targetPosition = GetVector3FromJoint(sourceJoint);
             targetPosition.z = 0;
-            PlayerMovement = targetPosition;
-
-            Transform jointObject = bodyObject.transform.Find("SpineBase");
-            jointObject.position = targetPosition;
+            if (_joint == JointType.SpineBase)
+            {
+                PlayerMovement = targetPosition;
+                Transform jointObject = bodyObject.transform.Find("SpineBase");
+                jointObject.position = targetPosition;
+            }
+            else if (_joint == JointType.HandLeft)
+            {
+                PlayerMovementHL = targetPosition;
+                Transform jointObjectHL = bodyObject.transform.Find("HandLeft");
+                jointObjectHL.position = targetPosition;
+            }
+            else if (_joint == JointType.HandRight)
+            {
+                PlayerMovementHR = targetPosition;
+                Transform jointObjectHR = bodyObject.transform.Find("HandRight");
+                jointObjectHR.position = targetPosition;
+            }
         }
     }
     
