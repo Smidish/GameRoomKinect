@@ -23,9 +23,6 @@ public class GM : MonoBehaviour
     public Transform enemyObj;
     public Transform boniObj;
 
-    public AudioClip sound;
-    public AudioSource asource;
-
     private int randNum;
     private int randNumX;
     private int randNumY;
@@ -66,10 +63,9 @@ public class GM : MonoBehaviour
         //Game finished
         if (waittoload > 2 || timeTotal > 100)
         {
-            asource.clip = sound;
             if (trollBuild)
             {
-                asource.Play();
+                SoundController.shared.playSound(SoundType.trollSound);
                 wait(4.0f);
             }
             SceneManager.LoadScene("end");
@@ -79,5 +75,5 @@ public class GM : MonoBehaviour
     IEnumerator wait(float sec)
     {
         yield return new WaitForSeconds(sec);
-    }
+    } 
 }

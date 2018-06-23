@@ -2,10 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class moveorb : MonoBehaviour {
+
+    public UnityEvent collision;
 
     public bool KeyboardInput;
 
@@ -20,9 +23,6 @@ public class moveorb : MonoBehaviour {
 
     public KeyCode moveL; 
     public KeyCode moveR;
-
-   
-
 
     private float horizVel = 0;  // Horizontal linie für rechts und links bewegen
     private int laneNum = 2;     //Raumeinschränkung, damit Spieler nicht über den Rand läuft (nur bei Tastatur Input)
@@ -71,26 +71,9 @@ public class moveorb : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other)
-    { 
-        //if (other.gameObject.name == "Coin(Clone)")
-        if (other.gameObject.name == "Coin_new(Clone)")
-        {
-            Debug.Log("coin collision");
-            Destroy(other.gameObject);
-            GM.coinTotal += 1;
-        }
-        //else if(other.gameObject.name == "Enemy(Clone)") 
-        else if (other.gameObject.name == "Structure_subdiv2(Clone)")            
-        {
-            Debug.Log("enemy collision");
-            Destroy(other.gameObject);
-            GM.coinTotal -= 2;
-        }
-        else if(other.gameObject.name == "Boni(Clone)")
-        {
-            Debug.Log("boni collision");
-            Destroy(other.gameObject);
-        }
+    {
+        collision.Invoke();
+        TriggerEnter.OnTriggerEnter(other);
     }
 
 
