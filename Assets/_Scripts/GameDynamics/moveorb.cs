@@ -58,9 +58,9 @@ public class moveorb : MonoBehaviour {
         {
             xPlayer = BodySourceView.PlayerMovement.x;
             yPlayer = BodySourceView.PlayerMovement.y;
-            Vector3 temp = new Vector3(xPlayer * xWertApassen, yPlayer * yWertApassen + yWertHoch, BodySourceView.PlayerMovement.z);//Werte von 3 bis -6
-            Vector3 tempHR = new Vector3(BodySourceView.PlayerMovementHR.x, BodySourceView.PlayerMovementHR.y, BodySourceView.PlayerMovementHR.z);
-            Vector3 tempHL = new Vector3(BodySourceView.PlayerMovementHL.x, BodySourceView.PlayerMovementHL.y, BodySourceView.PlayerMovementHL.z);
+            Vector3 temp = new Vector3(xPlayer * xWertApassen, yPlayer * yWertApassen + yWertHoch, 1);//Werte von 3 bis -6
+            Vector3 tempHR = new Vector3(BodySourceView.PlayerMovementHR.x, BodySourceView.PlayerMovementHR.y - yWertHoch, 5);
+            Vector3 tempHL = new Vector3(BodySourceView.PlayerMovementHL.x, BodySourceView.PlayerMovementHL.y - yWertHoch, 5);
             mPlayer.transform.position = temp;
             HR.transform.position = tempHR;
             HL.transform.position = tempHL;
@@ -72,7 +72,7 @@ public class moveorb : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        collision.Invoke();
+        //collision.Invoke();
         TriggerEnter.OnTriggerEnter(other);
     }
 
