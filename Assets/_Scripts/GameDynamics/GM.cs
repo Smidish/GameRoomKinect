@@ -36,7 +36,7 @@ public class GM : MonoBehaviour
         {
             randNumX = Random.Range(-15, 15);
             x = randNumX * 0.2f;
-            randNumY = Random.Range(0, 2);
+            randNumY = Random.Range(0, 3);
             y = randNumY;
 
             randNum = Random.Range(0,9);
