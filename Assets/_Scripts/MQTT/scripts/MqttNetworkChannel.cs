@@ -142,7 +142,6 @@ namespace uPLibrary.Networking.M2Mqtt
             // try connection to the broker
             this.socket.Connect(new IPEndPoint(this.remoteIpAddress, this.remotePort));
 
-
 #if SSL
             // secure channel requested
             if (secure)

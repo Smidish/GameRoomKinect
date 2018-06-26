@@ -5,11 +5,12 @@ using UnityEngine;
 
 [Serializable]
 public class Highscore {
+    public List<HighscoreData> Scores = new List<HighscoreData>();
 
-    //public List<int> ID = new List<int>();
-    //public List<string> username = new List<string>();
-    //public List<int> score = new List<int>();
-    public float _highscore = 0;
-    public string _username = "";
-    
+    [Serializable]
+    public class HighscoreData
+    {
+        public float _highscore = 0;
+        public string _username = "";
+    }
 }
