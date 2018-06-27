@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum _data
 {
@@ -9,18 +10,35 @@ public enum _data
     score
 }
 
-public class HighscoreFunctions : MonoBehaviour {
+public class HighscoreManager : MonoBehaviour {
 
     public const string PATH = @"D:\highscore.txt";
 
+    public InputField input;
+    public Text scoreText;
+    public Text allHighscores;
+
+    public Canvas can1;
+    public Canvas can2;
+
+
+    public static string username;
+
+    private void printHighscores(Highscore hs)
+    {
+        can1.enabled = false;
+        can2.enabled = true;
+
+        //Liste nach Höchstem score sortieren
+
+        //da die Liste reinprinten
+    }
+
     void Start()
     {
-        SaveHighscore(new Highscore.HighscoreData()
-        {
-            _highscore = 69,
-            _username = "Smi"
-        });
-        Debug.Log(ReadHighscores());
+        can1.enabled = true;
+        can2.enabled = false;
+        scoreText.text = "Score:  " + GM.coinTotal;
     }
 
   
@@ -52,5 +70,19 @@ public class HighscoreFunctions : MonoBehaviour {
     {
         string contents = File.ReadAllText(filePath);
         return contents;
+    }
+
+
+
+    public void SavePrintHighscore()
+    {
+        username = input.text;
+
+        SaveHighscore(new Highscore.HighscoreData()
+        {
+            _highscore = GM.coinTotal,
+            _username = username
+        });
+        printHighscores(ReadHighscores());
     }
 }
