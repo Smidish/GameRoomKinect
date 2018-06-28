@@ -8,9 +8,14 @@ public class Highscore {
     public List<HighscoreData> Scores = new List<HighscoreData>();
 
     [Serializable]
-    public class HighscoreData
+    public class HighscoreData : IComparable<HighscoreData>
     {
         public float _highscore = 0;
         public string _username = "";
+
+        public int CompareTo(HighscoreData other)
+        {
+            return this._highscore.CompareTo(other._highscore);
+        }
     }
 }

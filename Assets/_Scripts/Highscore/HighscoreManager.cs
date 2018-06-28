@@ -29,9 +29,16 @@ public class HighscoreManager : MonoBehaviour {
         can1.enabled = false;
         can2.enabled = true;
 
-        //Liste nach Höchstem score sortieren
-
-        //da die Liste reinprinten
+        hs.Scores.Sort();
+        hs.Scores.Reverse();
+        string hsText = "";
+        foreach(Highscore.HighscoreData hd in hs.Scores)
+        {
+            hsText += "Highscore: " + hd._highscore + "   Name: " + hd._username;
+            hsText += "\r\n";
+            //Debug.Log("Name:"+ hd._username + "    Highscore:"+ hd._highscore);
+        }
+        allHighscores.text = hsText;
     }
 
     void Start()
