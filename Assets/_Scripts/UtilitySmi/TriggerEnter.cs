@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class TriggerEnter : SoundController {
 
-    //public UnityEvent handsCollision;
+   
     public static void OnTriggerEnter(Collider other)
     {
         //if (other.gameObject.name == "Coin(Clone)")
@@ -18,11 +17,13 @@ public class TriggerEnter : SoundController {
         else if (other.gameObject.name == "Structure_subdiv2(Clone)")
         {
             GM.coinTotal -= 2;
+            GM.hitcount += 1;
+            mqttWeste.sharedMQTT.SendHit();
             SoundController.shared.playSound(SoundType.badHit);
         }
         else if (other.gameObject.name == "Boni(Clone)")
         {
-            //Boni action? Schattenmonster Sounds?
+            //Boni action? Schattenmonster Sounds? Leben sammeln?
             SoundController.shared.playSound(SoundType.trollSound);
         }
         Destroy(other.gameObject);

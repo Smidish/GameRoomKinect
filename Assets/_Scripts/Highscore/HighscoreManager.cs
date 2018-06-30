@@ -12,6 +12,7 @@ public enum _data
 
 public class HighscoreManager : MonoBehaviour {
 
+
     public const string PATH = @"D:\highscore.txt";
 
     public InputField input;
