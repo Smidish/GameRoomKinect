@@ -6,6 +6,7 @@ public class moveObjects : MonoBehaviour
 {
 
     public float speed = -4;
+    public static float plusminusspeed = 0;
 
     private void Start()
     {
@@ -14,6 +15,7 @@ public class moveObjects : MonoBehaviour
 
     void Update()
     {
-        GetComponent<Rigidbody>().velocity = new Vector3(0, GM.vertVel, speed); // Bewegung nach vorne
+        GetComponent<Rigidbody>().velocity = new Vector3(0, GM.vertVel, speed + plusminusspeed); // Bewegung nach vorne
+        Debug.Log(speed + plusminusspeed);
     }
 }
