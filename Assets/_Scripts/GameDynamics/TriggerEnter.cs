@@ -25,7 +25,9 @@ public class TriggerEnter : SoundController {
         }
         else if (other.gameObject.name == "Boni(Clone)")
         {
-            //Boni action? Schattenmonster Sounds? Leben sammeln?
+            GM.coinTotal += 2;
+            GM.hitcount -= 1;
+            mqttWeste.sharedMQTT.SendLife();
             SoundController.shared.playSound(SoundType.trollSound);
         }
         Destroy(other.gameObject);

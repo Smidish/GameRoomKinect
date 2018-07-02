@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum _data
@@ -92,5 +93,10 @@ public class HighscoreManager : MonoBehaviour {
             _username = username
         });
         printHighscores(ReadHighscores());
+    }
+
+    public void Change_Scene()
+    {
+        SceneManager.LoadScene("start");
     }
 }

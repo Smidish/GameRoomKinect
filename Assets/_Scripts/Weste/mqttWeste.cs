@@ -48,6 +48,13 @@ public class mqttWeste : MonoBehaviour
         Debug.Log("sent");
     }
 
+    public void SendLife()
+    {
+        Debug.Log("sending life");
+        client.Publish("weste", System.Text.Encoding.UTF8.GetBytes("2"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true);
+        Debug.Log("sent");
+    }
+
     public void restartGame()
     {
         // create client instance 

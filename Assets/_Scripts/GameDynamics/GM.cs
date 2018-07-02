@@ -32,31 +32,44 @@ public class GM : MonoBehaviour
     private float x;
     private float y;
 
+    private List<Transform> objList;
+
     void Start()
     {
+        coinTotal = 0;
+        hitcount = 0;
+        timeTotal = 0;
+        if(objList != null)
+        {
+            foreach (Transform tf in objList)
+            {
+                Destroy(tf.gameObject);
+            }
+        }
+        objList = new List<Transform>();
         mqttWeste.sharedMQTT.restartGame();
     }
 
     void Update()
     {
-            randNumX = Random.Range(-15, 15);
-            x = randNumX * 0.2f;
-            randNumY = Random.Range(0, 3);
-            y = randNumY;
-
-            randNum = Random.Range(0,500);
-            if (randNum <= 6) //70% Wahrscheinlichkeit
-            {
-                Instantiate(coinObj, new Vector3(x, y, zScenePos), coinObj.rotation);
-            }
-            else if(randNum>6 && randNum<=8) //20% Wahrscheinlichkeit
-            {
-                Instantiate(enemyObj, new Vector3(x, y, zScenePos), enemyObj.rotation);
-            }
-            else if (randNum == 9) //10% Wahrscheinlichkeit
-            {
-                Instantiate(boniObj, new Vector3(x, y, zScenePos), boniObj.rotation);
-            }
+        randNumX = Random.Range(-15, 15);
+        x = randNumX * 0.2f;
+        randNumY = Random.Range(0, 3);
+        y = randNumY;
+       
+        randNum = Random.Range(0,400);
+        if (randNum <= 6) //70% Wahrscheinlichkeit
+        {
+            objList.Add(Instantiate(coinObj, new Vector3(x, y, zScenePos), coinObj.rotation));
+        }
+        if(randNum>6 && randNum<=8) //20% Wahrscheinlichkeit
+        {
+            objList.Add(Instantiate(enemyObj, new Vector3(x, y, zScenePos), enemyObj.rotation));
+        }
+        if (randNum == 9) //10% Wahrscheinlichkeit
+        {
+            objList.Add(Instantiate(boniObj, new Vector3(x, y, zScenePos), boniObj.rotation));
+        }
 
         timeTotal += Time.deltaTime;
 
