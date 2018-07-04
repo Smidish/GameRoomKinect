@@ -11,6 +11,9 @@ public class SoundController : MonoBehaviour {
     public  AudioClip badHit;
     public  AudioClip goodHit;
     public  AudioClip boniHit;
+    public AudioClip ambient;
+    public AudioClip startSound;
+    public AudioClip endSound;
 
     public SoundController()
     {
@@ -35,18 +38,21 @@ public class SoundController : MonoBehaviour {
             case SoundType.trollSound:
                 asource.clip = trollSound;
                 break;
+            case SoundType.ambient:
+                asource.clip = ambient;
+                break;
+            case SoundType.startSound:
+                asource.clip = startSound;
+                break;
+            case SoundType.endSound:
+                asource.clip = endSound;
+                break;
             default:
                 Debug.Log("Sound Error");
                 break;
         }
         asource.Play();
     }
-
-    //public static void playSound(int id)
-    //{
-    //    SoundController sc = new SoundController();
-    //    sc._playSound(id);
-    //}
 }
 
 public enum SoundType
@@ -54,5 +60,8 @@ public enum SoundType
     goodHit,
     badHit,
     boniHit,
-    trollSound
+    trollSound,
+    ambient,
+    startSound,
+    endSound
 }

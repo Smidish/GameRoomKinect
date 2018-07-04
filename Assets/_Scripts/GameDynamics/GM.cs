@@ -74,7 +74,7 @@ public class GM : MonoBehaviour
         timeTotal += Time.deltaTime;
 
         //Game finished
-        if (hitcount >= 3 || timeTotal > gameDuration)
+        if (hitcount >= 2 || timeTotal > gameDuration)
         {
             if (trollBuild)
             {

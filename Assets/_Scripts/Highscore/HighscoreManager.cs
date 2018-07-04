@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ public class HighscoreManager : MonoBehaviour {
     public InputField input;
     public Text scoreText;
     public Text allHighscores;
+    public Text yourHighscores;
 
     public Canvas can1;
     public Canvas can2;
@@ -26,6 +28,7 @@ public class HighscoreManager : MonoBehaviour {
 
     public static string username;
 
+    //Gibt die Highscores aus
     private void printHighscores(Highscore hs)
     {
         can1.enabled = false;
@@ -33,14 +36,28 @@ public class HighscoreManager : MonoBehaviour {
 
         hs.Scores.Sort();
         hs.Scores.Reverse();
-        string hsText = "";
-        foreach(Highscore.HighscoreData hd in hs.Scores)
+        var firstten = hs.Scores.Take(5);
+        string hsText = "Highscores \r\n";
+        foreach(Highscore.HighscoreData hd in firstten)
         {
-            hsText += "Highscore: " + hd._highscore + "   Name: " + hd._username;
+            hsText += (hs.Scores.IndexOf(hd)+1)+ ".: " + hd._highscore + "   Name: " + hd._username;
             hsText += "\r\n";
-            //Debug.Log("Name:"+ hd._username + "    Highscore:"+ hd._highscore);
         }
         allHighscores.text = hsText;
+
+        var hs_index = hs.Scores.FindIndex(i => i._username == username);
+        if(hs_index >= 3)
+        {
+            var playerleague = hs.Scores.Skip(hs_index-2).Take(5);
+            string playerleaguetext = "\r\n";
+            foreach (Highscore.HighscoreData hd in playerleague)
+            {
+                playerleaguetext += (hs.Scores.IndexOf(hd) + 1) + ".: " + hd._highscore + "   Name: " + hd._username;
+                playerleaguetext += "\r\n";
+            }
+            yourHighscores.text = playerleaguetext;
+        }
+        
     }
 
     void Start()
@@ -50,7 +67,7 @@ public class HighscoreManager : MonoBehaviour {
         scoreText.text = "Score:  " + GM.coinTotal;
     }
 
-  
+    //schreibt neuen Highscore ans Ende der json Highscore Datei
     public void SaveHighscore(Highscore.HighscoreData hs)
     {
         var old_hs = ReadHighscores();
@@ -59,6 +76,7 @@ public class HighscoreManager : MonoBehaviour {
         WriteToFile(PATH, json);
     }
 
+    //liest die Highscore classes aus json Datei aus und gibt diese zurück
     public Highscore ReadHighscores()
     {
         var rawData = ReadFromFile(PATH);
@@ -70,11 +88,13 @@ public class HighscoreManager : MonoBehaviour {
         return highscores;
     }
     
+    //speichern
     public void WriteToFile(string filePath, string content)
     {
         File.WriteAllText(filePath, content);
     }
 
+    //lesen
     public static string ReadFromFile(string filePath)
     {
         string contents = File.ReadAllText(filePath);
@@ -82,7 +102,7 @@ public class HighscoreManager : MonoBehaviour {
     }
 
 
-
+    //speichert neuen Highscore mit eingegebenem Username und ruft die print Funktion auf
     public void SavePrintHighscore()
     {
         username = input.text;
