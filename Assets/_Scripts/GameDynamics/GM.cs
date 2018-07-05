@@ -8,6 +8,11 @@ using UnityEngine.UI;
 
 public class GM : MonoBehaviour
 {
+
+    public float maxSpornX;
+    public int maxSpornYR;
+    public int maxSpornYL;
+
     public bool trollBuild;
 
     public int gameDuration;
@@ -15,7 +20,7 @@ public class GM : MonoBehaviour
     public static float vertVel = 0;
     public static int coinTotal = 0;
     public static float timeTotal = 0;
-    public static int hitcount = 0;
+    public static int hitcount = 3;
 
     public float zScenePos;
 
@@ -37,7 +42,7 @@ public class GM : MonoBehaviour
     void Start()
     {
         coinTotal = 0;
-        hitcount = 0;
+        hitcount = 3;
         timeTotal = 0;
         if(objList != null)
         {
@@ -50,11 +55,13 @@ public class GM : MonoBehaviour
         mqttWeste.sharedMQTT.restartGame();
     }
 
+
+    //Hier werden alle Spielobjekte gespornt
     void Update()
     {
         randNumX = Random.Range(-15, 15);
-        x = randNumX * 0.2f;
-        randNumY = Random.Range(0, 3);
+        x = randNumX * maxSpornX;
+        randNumY = Random.Range(maxSpornYL, maxSpornYR);
         y = randNumY;
        
         randNum = Random.Range(0,400);
@@ -73,8 +80,8 @@ public class GM : MonoBehaviour
 
         timeTotal += Time.deltaTime;
 
-        //Game finished
-        if (hitcount >= 2 || timeTotal > gameDuration)
+        //Game finished if player got hit 3 times or time is up
+        if (hitcount <= 0 || timeTotal > gameDuration)
         {
             if (trollBuild)
             {

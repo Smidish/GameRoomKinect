@@ -16,6 +16,6 @@ public class moveObjects : MonoBehaviour
     void Update()
     {
         GetComponent<Rigidbody>().velocity = new Vector3(0, GM.vertVel, speed + plusminusspeed); // Bewegung nach vorne
-        Debug.Log(speed + plusminusspeed);
+        //Debug.Log(speed + plusminusspeed);
     }
 }

@@ -12,6 +12,7 @@ public class BodySourceView : MonoBehaviour
     public static Vector3 PlayerMovement;
     public static Vector3 PlayerMovementHR;
     public static Vector3 PlayerMovementHL;
+    public static Vector3 PlayerMovementHead;
     public BodySourceManager mBodySourceManager;
     public GameObject mJointObject;                 //Material for Tracking Points
     
@@ -21,7 +22,8 @@ public class BodySourceView : MonoBehaviour
     {
         JointType.SpineBase,
         JointType.HandLeft,
-        JointType.HandRight
+        JointType.HandRight,
+        JointType.Head
     };
     
     void Update () 
@@ -72,8 +74,10 @@ public class BodySourceView : MonoBehaviour
                 {
                     _Bodies[body.TrackingId] = CreateBodyObject(body.TrackingId);
                 }
-                
-                RefreshBodyObject(body, _Bodies[body.TrackingId]);
+               // if (body.TrackingId == 0)
+                //{
+                    RefreshBodyObject(body, _Bodies[body.TrackingId]);
+                //}
             }
         }
     }
@@ -95,12 +99,12 @@ public class BodySourceView : MonoBehaviour
     private void RefreshBodyObject(Kinect.Body body, GameObject bodyObject)
     {
         //HERE Position der Joints abgreifen
-        //needs to be testet with kinect
+        //this is where the magic happens aka joint daten aus der Kinect auslesen
         foreach(JointType _joint in _joints)
         {
             Joint sourceJoint = body.Joints[_joint];
             Vector3 targetPosition = GetVector3FromJoint(sourceJoint);
-            targetPosition.z = 0;
+            //targetPosition.z = 0;
             if (_joint == JointType.SpineBase)
             {
                 PlayerMovement = targetPosition;
@@ -119,12 +123,17 @@ public class BodySourceView : MonoBehaviour
                 Transform jointObjectHR = bodyObject.transform.Find("HandRight");
                 jointObjectHR.position = targetPosition;
             }
+            else if (_joint == JointType.Head)
+            {
+                PlayerMovementHead = targetPosition;
+                Transform jointObjectHead = bodyObject.transform.Find("Head");
+                jointObjectHead.position = targetPosition;
+            }
         }
     }
-    
-    
+
     private static Vector3 GetVector3FromJoint(Kinect.Joint joint)
     {
-        return new Vector3(joint.Position.X * 10, joint.Position.Y * 10, joint.Position.Z * 10);
+        return new Vector3(joint.Position.X * 10, joint.Position.Y * 10, joint.Position.Z * -10);
     }
 }

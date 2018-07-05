@@ -16,16 +16,18 @@ public class movePlayer : MonoBehaviour {
     public float yWertApassen;
     public float yWertHoch;
 
-    public GameObject mPlayer;
+    public GameObject mPlayer; //Spieler in Game
     public GameObject HL; //left Hand
     public GameObject HR; //right Hand
     public Text scoretext;
+    public Text lifetext;
+    public GameObject tunnel;
 
     public KeyCode moveL; 
     public KeyCode moveR;
 
     private float horizVel = 0;  // Horizontal linie für rechts und links bewegen
-    private int laneNum = 2;     //Raumeinschränkung, damit Spieler nicht über den Rand läuft (nur bei Tastatur Input)
+    private int laneNum = 2;     //nur bei Tastatur relevant: Raumeinschränkung, damit Spieler nicht über den Rand läuft (nur bei Tastatur Input)
     private string controllLocked = "n";
 
     private float xPlayer;
@@ -58,21 +60,25 @@ public class movePlayer : MonoBehaviour {
         {
             xPlayer = BodySourceView.PlayerMovement.x;
             yPlayer = BodySourceView.PlayerMovement.y;
-            Vector3 temp = new Vector3(xPlayer * xWertApassen, yPlayer * yWertApassen + yWertHoch, 1);//Werte von 3 bis -6
-            Vector3 tempHR = new Vector3(BodySourceView.PlayerMovementHR.x, BodySourceView.PlayerMovementHR.y - yWertHoch, 5);
-            Vector3 tempHL = new Vector3(BodySourceView.PlayerMovementHL.x, BodySourceView.PlayerMovementHL.y - yWertHoch, 5);
+            Vector3 temp = new Vector3(xPlayer /** xWertApassen*/, yPlayer/* * yWertApassen*/, BodySourceView.PlayerMovement.z);//Werte von 3 bis -6
+            Vector3 tempHR = new Vector3(BodySourceView.PlayerMovementHR.x, BodySourceView.PlayerMovementHR.y, BodySourceView.PlayerMovementHR.z);
+            Vector3 tempHL = new Vector3(BodySourceView.PlayerMovementHL.x, BodySourceView.PlayerMovementHL.y, BodySourceView.PlayerMovementHL.z);
             mPlayer.transform.position = temp;
             HR.transform.position = tempHR;
             HL.transform.position = tempHL;
-            //Debug.Log(mPlayer.transform.position);
+            Debug.Log(mPlayer.transform.position);
+           
             playerMovementCamera = temp;
         }
-        scoretext.text = "Score:" + GM.coinTotal;
+        scoretext.text = "Score: " + GM.coinTotal;
+        lifetext.text = "Lifes: " + GM.hitcount;
     }
+
+    Material m_Material;
 
     void OnTriggerEnter(Collider other)
     {
-        //collision.Invoke();
+        //leuchtnender Ring
         TriggerEnter.OnTriggerEnter(other);
     }
 
