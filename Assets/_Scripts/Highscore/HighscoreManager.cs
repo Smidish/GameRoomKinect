@@ -12,19 +12,16 @@ public enum _data
     score
 }
 
+
+//Klasse kümmert sich um Ausgabe und Speichern des Highscores
 public class HighscoreManager : MonoBehaviour {
-
-
     public const string PATH = @"D:\highscore.txt";
-
     public InputField input;
     public Text scoreText;
     public Text allHighscores;
     public Text yourHighscores;
-
     public Canvas can1;
     public Canvas can2;
-
 
     public static string username;
 
@@ -33,7 +30,6 @@ public class HighscoreManager : MonoBehaviour {
     {
         can1.enabled = false;
         can2.enabled = true;
-
         hs.Scores.Sort();
         hs.Scores.Reverse();
         var firstten = hs.Scores.Take(5);
@@ -44,9 +40,8 @@ public class HighscoreManager : MonoBehaviour {
             hsText += "\r\n";
         }
         allHighscores.text = hsText;
-
         var hs_index = hs.Scores.FindIndex(i => i._username == username);
-        if(hs_index >= 3)
+        if(hs_index >= 4)
         {
             var playerleague = hs.Scores.Skip(hs_index-2).Take(5);
             string playerleaguetext = "\r\n";
@@ -56,8 +51,7 @@ public class HighscoreManager : MonoBehaviour {
                 playerleaguetext += "\r\n";
             }
             yourHighscores.text = playerleaguetext;
-        }
-        
+        } 
     }
 
     void Start()
@@ -106,7 +100,6 @@ public class HighscoreManager : MonoBehaviour {
     public void SavePrintHighscore()
     {
         username = input.text;
-
         SaveHighscore(new Highscore.HighscoreData()
         {
             _highscore = GM.coinTotal,

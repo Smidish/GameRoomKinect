@@ -1,4 +1,4 @@
-﻿//Script basierend auf Jenny Rinks Wolfgame
+﻿//Script ursprünglich basierend auf Jennifer Rinks Wolfgame
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,38 +6,34 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+//kümmert sich um die Bewegungen des Spielers und weiter Game Dynamics
 public class movePlayer : MonoBehaviour {
 
-    public UnityEvent collision;
-
     public bool KeyboardInput;
-
+    public bool KinectBehindPlayer;
     public float xWertApassen;
     public float yWertApassen;
     public float yWertHoch;
-
     public GameObject mPlayer; //Spieler in Game
     public GameObject HL; //left Hand
     public GameObject HR; //right Hand
     public Text scoretext;
     public Text lifetext;
     public GameObject tunnel;
-
     public KeyCode moveL; 
     public KeyCode moveR;
+    public ParticleSystem ps;
 
-    private float horizVel = 0;  // Horizontal linie für rechts und links bewegen
+    private float horizVel = 0; 
     private int laneNum = 2;     //nur bei Tastatur relevant: Raumeinschränkung, damit Spieler nicht über den Rand läuft (nur bei Tastatur Input)
     private string controllLocked = "n";
-
     private float xPlayer;
     private float yPlayer;
 
     public static Vector3 playerMovementCamera;
 
     void Update () { 
-        
-
         if (KeyboardInput) //Keyboard Input
         {
             GetComponent<Rigidbody>().velocity = new Vector3(horizVel, 0, 0);
@@ -58,30 +54,32 @@ public class movePlayer : MonoBehaviour {
         }
         else //Kinect Input
         {
-            xPlayer = BodySourceView.PlayerMovement.x;
-            yPlayer = BodySourceView.PlayerMovement.y;
-            Vector3 temp = new Vector3(xPlayer /** xWertApassen*/, yPlayer/* * yWertApassen*/, BodySourceView.PlayerMovement.z);//Werte von 3 bis -6
+            if (KinectBehindPlayer)
+            {
+                xPlayer = BodySourceView.PlayerMovement.x * -1; //Werte spiegeln, wenn Kinect hinter dem Spieler aufgebaut ist
+            }
+            else {
+                xPlayer = BodySourceView.PlayerMovement.x;
+            }
+            yPlayer = BodySourceView.PlayerMovement.y+4;
+            Vector3 temp = new Vector3(xPlayer, yPlayer, BodySourceView.PlayerMovement.z); //Vector aus der Kinect
             Vector3 tempHR = new Vector3(BodySourceView.PlayerMovementHR.x, BodySourceView.PlayerMovementHR.y, BodySourceView.PlayerMovementHR.z);
             Vector3 tempHL = new Vector3(BodySourceView.PlayerMovementHL.x, BodySourceView.PlayerMovementHL.y, BodySourceView.PlayerMovementHL.z);
             mPlayer.transform.position = temp;
             HR.transform.position = tempHR;
             HL.transform.position = tempHL;
-            Debug.Log(mPlayer.transform.position);
-           
             playerMovementCamera = temp;
         }
         scoretext.text = "Score: " + GM.coinTotal;
         lifetext.text = "Lifes: " + GM.hitcount;
     }
 
-    Material m_Material;
-
     void OnTriggerEnter(Collider other)
     {
-        //leuchtnender Ring
+        //leuchtenden Ring durch Tunnel schicken
         TriggerEnter.OnTriggerEnter(other);
+        ps.Play();
     }
-
 
     IEnumerator stopSlide()
     {

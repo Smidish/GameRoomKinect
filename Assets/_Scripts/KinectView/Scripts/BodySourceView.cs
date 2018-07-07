@@ -6,6 +6,7 @@ using Kinect = Windows.Kinect;
 using Joint = Windows.Kinect.Joint;
 using Windows.Kinect;
 
+//Kinect Script, aus dem die Werte für das Spieler Tracking kommen
 public class BodySourceView : MonoBehaviour 
 {
 
@@ -14,10 +15,11 @@ public class BodySourceView : MonoBehaviour
     public static Vector3 PlayerMovementHL;
     public static Vector3 PlayerMovementHead;
     public BodySourceManager mBodySourceManager;
-    public GameObject mJointObject;                 //Material for Tracking Points
+    public GameObject mJointObject;
     
     private Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
    
+    //joints, die im Game genutzt werden
     private List<JointType> _joints = new List<JointType>
     {
         JointType.SpineBase,
@@ -28,7 +30,6 @@ public class BodySourceView : MonoBehaviour
     
     void Update () 
     {
-       // #region Get Kinect data
         Body[] data = mBodySourceManager.GetData();
         if (data == null)
         {
@@ -41,7 +42,7 @@ public class BodySourceView : MonoBehaviour
             if (body == null)
             {
                 continue;
-              }
+            }
                 
             if(body.IsTracked)
             {
@@ -98,18 +99,23 @@ public class BodySourceView : MonoBehaviour
     
     private void RefreshBodyObject(Kinect.Body body, GameObject bodyObject)
     {
-        //HERE Position der Joints abgreifen
         //this is where the magic happens aka joint daten aus der Kinect auslesen
         foreach(JointType _joint in _joints)
         {
             Joint sourceJoint = body.Joints[_joint];
             Vector3 targetPosition = GetVector3FromJoint(sourceJoint);
-            //targetPosition.z = 0;
+
+            //hier Wert nur weiter geben, wenn Spieler sich in einem bestimmten Wertebereich befindet (Spielfeld begrenzen)
             if (_joint == JointType.SpineBase)
             {
-                PlayerMovement = targetPosition;
+                if (targetPosition.z > -17 && targetPosition.x > -7 && targetPosition.x < 7)
+                {
+                    PlayerMovement = targetPosition;
+                }
+               
                 Transform jointObject = bodyObject.transform.Find("SpineBase");
                 jointObject.position = targetPosition;
+                Debug.Log("spine base" + targetPosition);
             }
             else if (_joint == JointType.HandLeft)
             {
@@ -125,7 +131,10 @@ public class BodySourceView : MonoBehaviour
             }
             else if (_joint == JointType.Head)
             {
-                PlayerMovementHead = targetPosition;
+                if (targetPosition.z > -17 && targetPosition.x > -7 && targetPosition.x < 7)
+                {
+                    PlayerMovementHead = targetPosition;
+                }
                 Transform jointObjectHead = bodyObject.transform.Find("Head");
                 jointObjectHead.position = targetPosition;
             }

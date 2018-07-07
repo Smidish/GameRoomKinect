@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//kümmert sich um die Soundausgabe
 public class SoundController : MonoBehaviour {
 
     public static SoundController shared = null;
@@ -22,7 +23,6 @@ public class SoundController : MonoBehaviour {
 
     public void playSound(SoundType id)
     {
-        //enum
         switch (id)
         {
             case SoundType.goodHit:

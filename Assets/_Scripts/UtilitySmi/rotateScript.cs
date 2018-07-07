@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class rotateScript : MonoBehaviour {
 
-	// Update is called once per frame
+	//rotiert Objekt, wenn man Script attached
 	void Update () {
         transform.Rotate(Time.deltaTime*-10, 0, 0);
     }

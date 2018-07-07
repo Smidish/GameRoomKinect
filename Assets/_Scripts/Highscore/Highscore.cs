@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//KLasse für Json Objekte Highscore
 [Serializable]
 public class Highscore {
     public List<HighscoreData> Scores = new List<HighscoreData>();

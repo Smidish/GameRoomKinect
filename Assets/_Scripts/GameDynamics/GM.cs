@@ -1,4 +1,4 @@
-﻿//Script basierend auf Jenny Rinks Wolfgame
+﻿//Script ursprünglich basierend auf Jennifer Rinks Wolfgame
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,30 +6,23 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+//Hauptscript, managed den Spielablauf 
 public class GM : MonoBehaviour
 {
-
     public float maxSpornX;
     public int maxSpornYR;
     public int maxSpornYL;
-
-    public bool trollBuild;
-
     public int gameDuration;
+    public float zScenePos;
+    public Transform coinObj;
+    public Transform enemyObj;
+    public Transform boniObj;
 
     public static float vertVel = 0;
     public static int coinTotal = 0;
     public static float timeTotal = 0;
     public static int hitcount = 3;
-
-    public float zScenePos;
-
-
-   // public Transform bbNoPit;
-
-    public Transform coinObj;
-    public Transform enemyObj;
-    public Transform boniObj;
 
     private int randNum;
     private int randNumX;
@@ -41,6 +34,7 @@ public class GM : MonoBehaviour
 
     void Start()
     {
+        //Werte zu beginn auf Null zurücksetzen
         coinTotal = 0;
         hitcount = 3;
         timeTotal = 0;
@@ -52,13 +46,16 @@ public class GM : MonoBehaviour
             }
         }
         objList = new List<Transform>();
-        mqttWeste.sharedMQTT.restartGame();
-    }
 
+        //Broker Verbindung starten
+        mqttWeste.sharedMQTT.restartGame();
+        SoundController.shared.playSound(SoundType.startSound);
+    }
 
     //Hier werden alle Spielobjekte gespornt
     void Update()
     {
+        //zufälliges spornen der Objekte
         randNumX = Random.Range(-15, 15);
         x = randNumX * maxSpornX;
         randNumY = Random.Range(maxSpornYL, maxSpornYR);
@@ -83,11 +80,8 @@ public class GM : MonoBehaviour
         //Game finished if player got hit 3 times or time is up
         if (hitcount <= 0 || timeTotal > gameDuration)
         {
-            if (trollBuild)
-            {
-                SoundController.shared.playSound(SoundType.trollSound);
-                wait(4.0f);
-            }
+            SoundController.shared.playSound(SoundType.endSound);
+            wait(4.0f);
             SceneManager.LoadScene("end");
         }
     }

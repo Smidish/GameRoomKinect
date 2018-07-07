@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
 
+//spielt GameRoom Logo Video ab
 public class VideoScript : MonoBehaviour {
     public VideoPlayer VP;
     public Canvas UICanvas;
