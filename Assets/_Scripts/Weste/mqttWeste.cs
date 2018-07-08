@@ -21,21 +21,21 @@ public class mqttWeste : MonoBehaviour
 
     void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e) //ankommende NAchrichten
     {
-        Debug.Log("Received: " + System.Text.Encoding.UTF8.GetString(e.Message));
+        //Debug.Log("Received: " + System.Text.Encoding.UTF8.GetString(e.Message));
     }
 
     public void SendHit() //schickt "1", wenn Spieler getroffen wurde
     {
-        Debug.Log("sending hit");
+        //Debug.Log("sending hit");
         client.Publish("weste", System.Text.Encoding.UTF8.GetBytes("1"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true);
-        Debug.Log("sent");
+        //Debug.Log("sent");
     }
 
     public void SendLife() //schickt "2", wenn Spieler Leben eingesammelt hat
     {
-        Debug.Log("sending life");
+        //Debug.Log("sending life");
         client.Publish("weste", System.Text.Encoding.UTF8.GetBytes("2"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true);
-        Debug.Log("sent");
+        //Debug.Log("sent");
     }
 
     public void restartGame() //sendet "0" zu Beginn des Spiels und baut Connection auf

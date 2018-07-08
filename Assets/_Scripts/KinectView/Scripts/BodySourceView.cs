@@ -115,7 +115,6 @@ public class BodySourceView : MonoBehaviour
                
                 Transform jointObject = bodyObject.transform.Find("SpineBase");
                 jointObject.position = targetPosition;
-                Debug.Log("spine base" + targetPosition);
             }
             else if (_joint == JointType.HandLeft)
             {

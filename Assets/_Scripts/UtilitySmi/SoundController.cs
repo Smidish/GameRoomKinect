@@ -26,7 +26,6 @@ public class SoundController : MonoBehaviour {
         switch (id)
         {
             case SoundType.goodHit:
-                Debug.Log(goodHit);
                 asource.clip = goodHit;
                 break;
             case SoundType.badHit:

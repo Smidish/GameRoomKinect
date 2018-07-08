@@ -13,7 +13,6 @@ public class collisionRecognizer : MonoBehaviour {
     }
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hand Collision");
         StartCoroutine(PlayAnimation());
         psh.Play();
         TriggerEnter.OnTriggerEnter(other);
