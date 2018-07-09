@@ -23,9 +23,11 @@ public class BodySourceView : MonoBehaviour
     private List<JointType> _joints = new List<JointType>
     {
         JointType.SpineBase,
+        JointType.SpineShoulder,
         JointType.HandLeft,
         JointType.HandRight,
-        JointType.Head
+        JointType.Head,
+        JointType.SpineMid
     };
     
     void Update () 
@@ -106,7 +108,7 @@ public class BodySourceView : MonoBehaviour
             Vector3 targetPosition = GetVector3FromJoint(sourceJoint);
 
             //hier Wert nur weiter geben, wenn Spieler sich in einem bestimmten Wertebereich befindet (Spielfeld begrenzen)
-            if (_joint == JointType.SpineBase)
+            if (_joint == JointType.SpineMid)
             {
                 if (targetPosition.z > -22 && targetPosition.x > -7 && targetPosition.x < 7)
                 {
