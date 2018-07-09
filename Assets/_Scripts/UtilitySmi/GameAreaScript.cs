@@ -15,7 +15,7 @@ public class GameAreaScript : MonoBehaviour {
 		if(BodySourceView.PlayerMovement.y != 0 && isStart)
         {
             //-2
-            Vector3 temp = new Vector3(3.5f, BodySourceView.PlayerMovement.y-1, -65.7f);
+            Vector3 temp = new Vector3(3.5f, BodySourceView.PlayerMovementHead.y, -65.7f);
             this.gameObject.transform.position = temp;
             isStart = false;
         }

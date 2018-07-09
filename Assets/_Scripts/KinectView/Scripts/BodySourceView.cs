@@ -108,7 +108,7 @@ public class BodySourceView : MonoBehaviour
             //hier Wert nur weiter geben, wenn Spieler sich in einem bestimmten Wertebereich befindet (Spielfeld begrenzen)
             if (_joint == JointType.SpineBase)
             {
-                if (targetPosition.z > -17 && targetPosition.x > -7 && targetPosition.x < 7)
+                if (targetPosition.z > -22 && targetPosition.x > -7 && targetPosition.x < 7)
                 {
                     PlayerMovement = targetPosition;
                 }
@@ -130,7 +130,7 @@ public class BodySourceView : MonoBehaviour
             }
             else if (_joint == JointType.Head)
             {
-                if (targetPosition.z > -17 && targetPosition.x > -7 && targetPosition.x < 7)
+                if (targetPosition.z > -22 && targetPosition.x > -7 && targetPosition.x < 7)
                 {
                     PlayerMovementHead = targetPosition;
                 }

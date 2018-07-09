@@ -24,6 +24,10 @@ public class movePlayer : MonoBehaviour {
     public KeyCode moveL; 
     public KeyCode moveR;
     public ParticleSystem ps;
+    public Color red;
+    public Color green;
+    public Color blue;
+
 
     private float horizVel = 0; 
     private int laneNum = 2;     //nur bei Tastatur relevant: Raumeinschränkung, damit Spieler nicht über den Rand läuft (nur bei Tastatur Input)
@@ -78,6 +82,19 @@ public class movePlayer : MonoBehaviour {
     {
         //leuchtenden Ring durch Tunnel schicken
         TriggerEnter.OnTriggerEnter(other);
+        var main = ps.main;
+        if (other.gameObject.name == "Coin_new(Clone)")
+        {
+            main.startColor = blue;
+        }
+        else if (other.gameObject.name == "Structure_subdiv2(Clone)")
+        {
+            main.startColor = red;
+        }
+        else if (other.gameObject.name == "Boni(Clone)")
+        {
+            main.startColor = green;
+        }
         ps.Play();
     }
 
