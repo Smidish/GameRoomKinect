@@ -65,7 +65,7 @@ public class movePlayer : MonoBehaviour {
             else {
                 xPlayer = BodySourceView.PlayerMovement.x;
             }
-            yPlayer = BodySourceView.PlayerMovement.y;
+            yPlayer = BodySourceView.PlayerMovement.y+4;
             Vector3 temp = new Vector3(xPlayer, yPlayer, BodySourceView.PlayerMovement.z); //Vector aus der Kinect
             Vector3 tempHR = new Vector3(BodySourceView.PlayerMovementHR.x, BodySourceView.PlayerMovementHR.y, BodySourceView.PlayerMovementHR.z);
             Vector3 tempHL = new Vector3(BodySourceView.PlayerMovementHL.x, BodySourceView.PlayerMovementHL.y, BodySourceView.PlayerMovementHL.z);

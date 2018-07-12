@@ -11,7 +11,6 @@ public class Headtrack : MonoBehaviour
     public float MultiplyX = 1f;
     public float MultiplyY = 1f;
     public float MultiplyZ = 1f;
-
     void Update()
     {
 
@@ -34,6 +33,7 @@ public class Headtrack : MonoBehaviour
                     //Debug.Log(jointPos);
                     //transform.position = new Vector3(NewOffsetX, NewOffsetY, NewOffsetZ);
                     transform.position = new Vector3(NewOffsetX, NewOffsetY, transform.position.z);
+                    
         //        }
         //    }
         //}

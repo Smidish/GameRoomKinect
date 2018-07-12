@@ -15,7 +15,7 @@ public enum _data
 
 //Klasse kümmert sich um Ausgabe und Speichern des Highscores
 public class HighscoreManager : MonoBehaviour {
-    public const string PATH = @"D:\highscore.txt";
+    public const string PATH = @"D:\highscores.txt";
     public InputField input;
     public Text scoreText;
     public Text allHighscores;
@@ -64,10 +64,29 @@ public class HighscoreManager : MonoBehaviour {
     //schreibt neuen Highscore ans Ende der json Highscore Datei
     public void SaveHighscore(Highscore.HighscoreData hs)
     {
-        var old_hs = ReadHighscores();
-        old_hs.Scores.Add(hs);
-        string json = JsonUtility.ToJson(old_hs);
-        WriteToFile(PATH, json);
+        try
+        {
+            if (!File.Exists(PATH))
+            {
+                Debug.Log("1");
+                using (FileStream fileStream =
+                 File.Create(PATH))
+                using (StreamWriter writer = new StreamWriter(fileStream))
+                {
+                    //string txt = "{'Scores':[]}";
+                    writer.WriteLine();
+                    writer.Close();
+                }
+            }
+            var old_hs = ReadHighscores();
+            old_hs.Scores.Add(hs);
+            string json = JsonUtility.ToJson(old_hs);
+            WriteToFile(PATH, json);
+        }
+        catch
+        {
+            Change_Scene();
+        }
     }
 
     //liest die Highscore classes aus json Datei aus und gibt diese zurück

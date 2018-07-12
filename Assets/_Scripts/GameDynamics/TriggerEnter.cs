@@ -27,7 +27,10 @@ public class TriggerEnter : SoundController {
         else if (other.gameObject.name == "Boni(Clone)")
         {
             GM.coinTotal += 2;
-            GM.hitcount += 1;
+            if (GM.hitcount < 3)
+            {
+                GM.hitcount += 1;
+            }
             mqttWeste.sharedMQTT.SendLife();
             SoundController.shared.playSound(SoundType.trollSound);
         }

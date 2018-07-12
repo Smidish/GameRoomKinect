@@ -18,7 +18,10 @@ public class BodySourceView : MonoBehaviour
     public GameObject mJointObject;
     
     private Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
-   
+    private Matrix4x4 kinectToWorld;
+    public Transform offset;
+
+
     //joints, die im Game genutzt werden
     private List<JointType> _joints = new List<JointType>
     {
@@ -29,9 +32,17 @@ public class BodySourceView : MonoBehaviour
         JointType.Head,
         JointType.SpineMid
     };
-    
+
+    private void Start()
+    {
+        //        kinectToWorld.SetTRS(new Vector3(0.0f, 20.0f, 0.0f), Quaternion.AngleAxis(45, Vector3.right), Vector3.one);
+        //kinectToWorld.SetTRS(new Vector3(0.0f, 20.0f, 0.0f), Quaternion.identity, Vector3.one);
+        kinectToWorld = offset.localToWorldMatrix;
+    }
+
     void Update () 
     {
+        kinectToWorld = offset.worldToLocalMatrix;
         Body[] data = mBodySourceManager.GetData();
         if (data == null)
         {
@@ -105,14 +116,17 @@ public class BodySourceView : MonoBehaviour
         foreach(JointType _joint in _joints)
         {
             Joint sourceJoint = body.Joints[_joint];
-            Vector3 targetPosition = GetVector3FromJoint(sourceJoint);
+            Vector3 rawPosition = GetVector3FromJoint(sourceJoint);
+            Vector3 targetPosition = kinectToWorld.MultiplyPoint3x4(rawPosition);
+            //Debug.Log(targetPosition);
 
             //hier Wert nur weiter geben, wenn Spieler sich in einem bestimmten Wertebereich befindet (Spielfeld begrenzen)
             if (_joint == JointType.SpineMid)
             {
-                if (targetPosition.z > -22 && targetPosition.x > -7 && targetPosition.x < 7)
+                if (/*targetPosition.z > -22 && */targetPosition.x > -7 && targetPosition.x < 7)
                 {
                     PlayerMovement = targetPosition;
+                    Debug.Log(targetPosition);
                 }
                
                 Transform jointObject = bodyObject.transform.Find("SpineBase");
