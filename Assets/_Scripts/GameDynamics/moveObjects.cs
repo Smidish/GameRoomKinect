@@ -6,12 +6,13 @@ using UnityEngine;
 //Bewegt gespornte Objekte nach vorne, mit unterschiedlicher Geschwindigkeit
 public class moveObjects : MonoBehaviour
 {
-    public float speed = -4;
+    public float speed = -6;
     public static float plusminusspeed = 0;
 
     private void Start()
     {
-        speed = speed * Random.Range(1, 5) * 0.35f;
+        plusminusspeed = 0;
+        speed = speed * Random.Range(3, 6) * 0.35f;
     }
 
     void Update()

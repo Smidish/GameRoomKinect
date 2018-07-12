@@ -15,7 +15,7 @@ public enum _data
 
 //Klasse kümmert sich um Ausgabe und Speichern des Highscores
 public class HighscoreManager : MonoBehaviour {
-    public const string PATH = @"D:\highscores.txt";
+    public const string PATH = @"D:\highscore.txt";
     public InputField input;
     public Text scoreText;
     public Text allHighscores;
@@ -87,6 +87,7 @@ public class HighscoreManager : MonoBehaviour {
         {
             Change_Scene();
         }
+        
     }
 
     //liest die Highscore classes aus json Datei aus und gibt diese zurück

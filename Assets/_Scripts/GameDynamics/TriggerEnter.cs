@@ -11,7 +11,7 @@ public class TriggerEnter : SoundController {
         if (other.gameObject.name == "Coin_new(Clone)")
         {      
             GM.coinTotal += 1;
-            moveObjects.plusminusspeed -= 0.1f;
+            moveObjects.plusminusspeed -= 0.2f;
             SoundController.shared.playSound(SoundType.goodHit); 
         } 
         //bad Object, Spieler verliert 2 Punkte und 1 Leben
@@ -19,7 +19,7 @@ public class TriggerEnter : SoundController {
         {
             GM.coinTotal -= 2;
             GM.hitcount -= 1;
-            moveObjects.plusminusspeed += 0.1f;
+            moveObjects.plusminusspeed += 0.2f;
             mqttWeste.sharedMQTT.SendHit();
             SoundController.shared.playSound(SoundType.badHit);
         }
@@ -27,6 +27,7 @@ public class TriggerEnter : SoundController {
         else if (other.gameObject.name == "Boni(Clone)")
         {
             GM.coinTotal += 2;
+            GM.timeTotal += 10;
             if (GM.hitcount < 3)
             {
                 GM.hitcount += 1;

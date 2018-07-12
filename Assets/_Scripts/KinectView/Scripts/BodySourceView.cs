@@ -38,11 +38,12 @@ public class BodySourceView : MonoBehaviour
         //        kinectToWorld.SetTRS(new Vector3(0.0f, 20.0f, 0.0f), Quaternion.AngleAxis(45, Vector3.right), Vector3.one);
         //kinectToWorld.SetTRS(new Vector3(0.0f, 20.0f, 0.0f), Quaternion.identity, Vector3.one);
         kinectToWorld = offset.localToWorldMatrix;
+       // kinectToWorld = offset.worldToLocalMatrix;
     }
 
     void Update () 
     {
-        kinectToWorld = offset.worldToLocalMatrix;
+        kinectToWorld = offset.localToWorldMatrix;
         Body[] data = mBodySourceManager.GetData();
         if (data == null)
         {

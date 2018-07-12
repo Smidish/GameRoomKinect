@@ -25,7 +25,7 @@ public class Headtrack : MonoBehaviour
         //        if (manager.IsJointTracked(userId, (int)joint))
         //        {
 
-                    Vector3 jointPos = BodySourceView.PlayerMovementHead;
+                    Vector3 jointPos = new Vector3(BodySourceView.PlayerMovementHead.x, BodySourceView.PlayerMovementHead.y, BodySourceView.PlayerMovementHead.z);
                     float NewOffsetX = jointPos.x * MultiplyX + OffsetX;
                     float NewOffsetY = jointPos.y * MultiplyY + OffsetY;
                     float NewOffsetZ = jointPos.z * MultiplyZ + OffsetZ;

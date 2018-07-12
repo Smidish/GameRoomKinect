@@ -18,6 +18,7 @@ public class GM : MonoBehaviour
     public Transform coinObj;
     public Transform enemyObj;
     public Transform boniObj;
+    public Text timetext;
 
     public static float vertVel = 0;
     public static int coinTotal = 0;
@@ -55,13 +56,15 @@ public class GM : MonoBehaviour
     //Hier werden alle Spielobjekte gespornt
     void Update()
     {
+        var time_text = gameDuration - timeTotal;
+        timetext.text = time_text.ToString();
         //zufälliges spornen der Objekte
         randNumX = Random.Range(-15, 15);
         x = randNumX * maxSpornX;
         randNumY = Random.Range(maxSpornYL, maxSpornYR);
         y = randNumY;
        
-        randNum = Random.Range(0,400);
+        randNum = Random.Range(0,200);
         if (randNum <= 6) //70% Wahrscheinlichkeit
         {
             objList.Add(Instantiate(coinObj, new Vector3(x, y, zScenePos), coinObj.rotation));
